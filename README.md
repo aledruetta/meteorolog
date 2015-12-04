@@ -1,6 +1,6 @@
 # Meteoro Log
 
-## DS18B20 One Wire Digital Temperature Sensor
+### DS18B20 One Wire Digital Temperature Sensor
 
 Libraries:
 
