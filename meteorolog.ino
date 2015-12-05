@@ -11,14 +11,14 @@
 #include <DallasTemperature.h>
 
 // Sensor input pin
-#define ds18b20 10
+#define DS18B20 10
 // How many bits to use for temperature values: 9, 10, 11 or 12
-#define SENSOR_RESOLUTION 9
+#define DS18B20_RESOLUTION 9
 // Index of sensors connected to data pin, default: 0
-#define SENSOR_INDEX 0
+#define DS18B20_INDEX 0
 
 // DS18S20 Temperature chip i/o on pin 10
-OneWire oneWire(ds18b20);
+OneWire oneWire(DS18B20);
 
 // Tell Dallas Temperature Library to use oneWire library
 DallasTemperature sensors(&oneWire);
@@ -31,17 +31,17 @@ void setup(void) {
 
   // Start up DallasTemperature library
   sensors.begin();
-  sensors.getAddress(sensorDeviceAddress, SENSOR_INDEX);
-  sensors.setResolution(sensorDeviceAddress, SENSOR_RESOLUTION);
+  sensors.getAddress(sensorDeviceAddress, DS18B20_INDEX);
+  sensors.setResolution(sensorDeviceAddress, DS18B20_RESOLUTION);
 }
 
 void loop(void) {
-  temp_ds18b20();
+  temp_DS18B20();
   delay(1000);      // Read frequency
 }
 
-void temp_ds18b20(void) {
+void temp_DS18B20(void) {
   sensors.requestTemperatures();
   Serial.print("DS18B20:");
-  Serial.println(sensors.getTempCByIndex(SENSOR_INDEX));
+  Serial.println(sensors.getTempCByIndex(DS18B20_INDEX));
 }
