@@ -9,6 +9,7 @@
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <SoftwareSerial.h>
 
 // Sensor input pin
 #define DS18B20 10
@@ -37,6 +38,7 @@ void setup(void) {
 
 void loop(void) {
   temp_DS18B20();
+  Serial.println("::END READS::");
   delay(1000);      // Read frequency
 }
 
