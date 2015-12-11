@@ -70,22 +70,26 @@ void read_DS18B20(void) {
 }
 
 void read_DHT11(void) {
+  float temperature = 0, humidity = 0;
   sensors_event_t dht11;
-  dht.temperature().getEvent(&dht11);
 
-  if (isnan(dht11.temperature)) {
+  dht.temperature().getEvent(&dht11);
+  temperature = dht11.temperature;
+  if (isnan(temperature)) {
     Serial.println("Error reading temperature!");
   }
   else {
     Serial.print("DHT11_T:");
-    Serial.println(dht11.temperature);
+    Serial.println(temperature);
   }
+
   dht.humidity().getEvent(&dht11);
-  if (isnan(dht11.relative_humidity)) {
+  humidity = dht11.relative_humidity;
+  if (isnan(humidity)) {
     Serial.println("Error reading humidity!");
   }
   else {
     Serial.print("DHT11_H:");
-    Serial.println(dht11.relative_humidity);
+    Serial.println(humidity);
   }
 }
