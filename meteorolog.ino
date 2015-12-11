@@ -1,20 +1,26 @@
-/** Digital Temperature Sensor Module Keyes DS18B20
- *  Terminals:
+/*** MeteoroLog: just another mini weather station ***
+ *
+ *  DS18B20 Digital Temperature Sensor Module Keyes
  *      G --> Ground
  *      R --> 5 Vcc
  *      Y --> Signal (pin 10)
  *      Connect a 4.7K resistor from pin R to pin Y of the sensor
- ** DHT11 basic temperature-humidity sensor
+ *
+ *  DHT11 Basic Temperature-Humidity Sensor
  *      GND  --> Ground
  *      DATA --> Signal (pin 9)
  *      VCC  --> 5 Vcc
  *      Connect a 10K resistor from pin DATA to pin VCC of the sensor
  */
 
+/*** Include Libraries ***/
+
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <DHT_U.h>
 // #include <SoftwareSerial.h>
-#include <DHT.h>
+
+/*** Define constants ***/
 
 #define DHTPIN 9
 #define DHTTYPE DHT11
@@ -25,14 +31,16 @@
 // Index of sensors connected to data pin, default: 0
 #define DS18B20_INDEX 0
 
+/*** Initialize objects and variables ***/
+
 // Initialize DHT sensor.
-DHT dht(DHTPIN, DHTTYPE);
+DHT_Unified dht(DHTPIN, DHTTYPE);
 
 // DS18S20 Temperature chip i/o on pin 10
 OneWire oneWire(DS18B20PIN);
 
 // Tell Dallas Temperature Library to use oneWire library
-DallasTemperature sensors(&oneWire);
+DallasTemperature ds18b20(&oneWire);
 DeviceAddress sensorDeviceAddress;
 
 void setup(void) {
@@ -40,51 +48,44 @@ void setup(void) {
   while(!Serial);
   delay(1000);
 
-  // Start up DallasTemperature library
-  sensors.begin();
-  sensors.getAddress(sensorDeviceAddress, DS18B20_INDEX);
-  sensors.setResolution(sensorDeviceAddress, DS18B20_RESOLUTION);
+  // Start up DS18B20 sensor
+  ds18b20.begin();
+  ds18b20.getAddress(sensorDeviceAddress, DS18B20_INDEX);
+  ds18b20.setResolution(sensorDeviceAddress, DS18B20_RESOLUTION);
   // Start DHT11 sensor
   dht.begin();
 }
 
 void loop(void) {
-  temp_DS18B20();
-  temp_hum_DHT11();
+  read_DS18B20();
+  read_DHT11();
   Serial.println("--> END <--");
   delay(2000);      // Read frequency
 }
 
-void temp_DS18B20(void) {
-  sensors.requestTemperatures();
+void read_DS18B20(void) {
+  ds18b20.requestTemperatures();
   Serial.print("DS18B20:");
-  Serial.println(sensors.getTempCByIndex(DS18B20_INDEX));
+  Serial.println(ds18b20.getTempCByIndex(DS18B20_INDEX));
 }
 
-void temp_hum_DHT11(void) {
-  // Reading temperature or humidity takes about 250 milliseconds!
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
+void read_DHT11(void) {
+  sensors_event_t dht11;
+  dht.temperature().getEvent(&dht11);
 
-  // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
-    return;
+  if (isnan(dht11.temperature)) {
+    Serial.println("Error reading temperature!");
   }
-
-  // Compute heat index in Celsius (isFahreheit = false)
-  // The heat index (HI) or humiture or humidex is an index that combines air
-  // temperature and relative humidity in an attempt to determine the
-  // human-perceived equivalent temperature—how hot it would feel if the
-  // humidity were some other value.
-  float hi = dht.computeHeatIndex(t, h, false);
-
-  Serial.print("DHT11_T:");
-  Serial.println(t);
-  Serial.print("DHT11_H:");
-  Serial.println(h);
-  Serial.print("DHT11_HI:");
-  Serial.println(hi);
+  else {
+    Serial.print("DHT11_T:");
+    Serial.println(dht11.temperature);
+  }
+  dht.humidity().getEvent(&dht11);
+  if (isnan(dht11.relative_humidity)) {
+    Serial.println("Error reading humidity!");
+  }
+  else {
+    Serial.print("DHT11_H:");
+    Serial.println(dht11.relative_humidity);
+  }
 }
