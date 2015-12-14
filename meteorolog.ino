@@ -60,7 +60,6 @@ void loop(void) {
   read_DS18B20();
   read_DHT11();
   Serial.println("--> END <--");
-  delay(2000);      // Read frequency
 }
 
 void read_DS18B20(void) {
@@ -70,7 +69,7 @@ void read_DS18B20(void) {
 }
 
 void read_DHT11(void) {
-  float temperature = 0, humidity = 0;
+  float temperature = 0.0, humidity = 0.0;
   sensors_event_t dht11;
 
   dht.temperature().getEvent(&dht11);

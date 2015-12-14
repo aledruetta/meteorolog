@@ -1,0 +1,65 @@
+#! /usr/bin/env python
+# coding: utf-8
+
+from serial import Serial, SerialException
+from time import localtime, strftime
+import sys
+
+
+class Arduino:
+    def __init__(self, port):
+        self.port = port
+        self.serial = self.get_serial()
+        self.sensors = [
+            {
+                "ID": "DS18B20",
+                "tag": "Temp 1",
+                "unit": "Celsius",
+                "value": 0.0
+            },
+            {
+                "ID": "DHT11_T",
+                "tag": "Temp 2",
+                "unit": "Celsius",
+                "value": 0.0
+            },
+            {
+                "ID": "DHT11_H",
+                "tag": "Humidity",
+                "unit": "%",
+                "value": 0.0
+            }
+        ]
+
+    def get_serial(self):
+        # Serial begin and start up
+        try:
+            return Serial(self.port, 9600, timeout=2)
+        except SerialException as err:
+            print str(err)
+            sys.exit(2)
+
+    def read_sensors(self):
+        while True:
+            try:
+                line = self.serial.readline()
+            except SerialException as err:
+                debug(str(err))
+                sys.exit(2)
+            line = line.strip()
+            if line == "--> END <--":
+                break
+            try:
+                sensor, value = line.split(":", 1)
+            except ValueError:
+                continue
+            else:
+                for ssor in self.sensors:
+                    if ssor["ID"] == sensor:
+                        ssor["value"] = float(value)
+
+
+def debug(text):
+    str_f_time = strftime("%d/%m/%y %H:%M:%S ", localtime())
+    with open("log.txt", "a") as log:
+        log.write("{} {}\n".format(str_f_time, text))
