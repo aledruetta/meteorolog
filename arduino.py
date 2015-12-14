@@ -14,19 +14,31 @@ class Arduino:
             {
                 "ID": "DS18B20",
                 "tag": "Temp 1",
-                "unit": "Celsius",
+                "unit": "deg C",
                 "value": 0.0
             },
             {
                 "ID": "DHT11_T",
                 "tag": "Temp 2",
-                "unit": "Celsius",
+                "unit": "deg C",
                 "value": 0.0
             },
             {
                 "ID": "DHT11_H",
                 "tag": "Humidity",
                 "unit": "%",
+                "value": 0.0
+            },
+            {
+                "ID": "BMP180",
+                "tag": "Pressure",
+                "unit": "",
+                "value": 0.0
+            },
+            {
+                "ID": "BH1750",
+                "tag": "Luminosity",
+                "unit": "",
                 "value": 0.0
             }
         ]

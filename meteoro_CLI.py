@@ -26,7 +26,7 @@ class CliApp:
 
     def clock(self):
         now = strftime("%H:%M:%S", localtime())
-        self.clock_win.addstr(0, 0, " {} MeteoroLog Real Time ".format(now),
+        self.clock_win.addstr(0, 0, " {} MeteoroLog Real-time ".format(now),
                               curses.A_REVERSE)
         self.clock_win.refresh()
 
