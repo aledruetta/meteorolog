@@ -7,36 +7,49 @@ import sys
 
 
 class Arduino:
+
     def __init__(self, port):
         self.port = port
         self.serial = self.get_serial()
         self.sensors = [
             {
                 "ID": "DS18B20",
+                "name": "DS18B20",
                 "tag": "Temp 1",
                 "unit": "deg C",
                 "value": 0.0
             },
             {
                 "ID": "DHT11_T",
+                "name": "DHT11",
                 "tag": "Temp 2",
                 "unit": "deg C",
                 "value": 0.0
             },
             {
+                "ID": "BMP180_T",
+                "name": "BMP180",
+                "tag": "Temp 3",
+                "unit": "deg C",
+                "value": 0.0
+            },
+            {
                 "ID": "DHT11_H",
+                "name": "DHT11",
                 "tag": "Humidity",
                 "unit": "%",
                 "value": 0.0
             },
             {
-                "ID": "BMP180",
+                "ID": "BMP180_P",
+                "name": "BMP180",
                 "tag": "Pressure",
-                "unit": "",
+                "unit": "hPa",
                 "value": 0.0
             },
             {
                 "ID": "BH1750",
+                "name": "BH1750",
                 "tag": "Luminosity",
                 "unit": "",
                 "value": 0.0

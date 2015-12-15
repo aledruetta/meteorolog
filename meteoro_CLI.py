@@ -7,6 +7,7 @@ from time import sleep, strftime, localtime
 
 
 class CliApp:
+
     def __init__(self, clock_w, sensor_w, ino):
         self.clock_win = clock_w
         self.sensor_win = sensor_w
@@ -26,8 +27,9 @@ class CliApp:
 
     def clock(self):
         now = strftime("%H:%M:%S", localtime())
-        self.clock_win.addstr(0, 0, " {} | MeteoroLog Real-time ".format(now),
-                              curses.A_REVERSE)
+        self.clock_win.addstr(
+            0, 0, "   {}   |   MeteoroLog Real-time    ".format(now),
+            curses.A_REVERSE)
         self.clock_win.refresh()
 
     def show_reads(self):
@@ -35,9 +37,8 @@ class CliApp:
 
         line = 0
         for sensor in self.arduino.sensors:
-            self.sensor_win.addstr(line, 1, "{:<11} {:02.1f} {:<5} {}".format(
-                sensor["tag"] + ":", sensor["value"], sensor["unit"],
-                sensor["ID"]))
+            self.sensor_win.addstr(line, 1, "{:<11}\t{:04.1f}\t{:<5}\t{}".format(
+                sensor["tag"] + ":", sensor["value"], sensor["unit"], sensor["name"]))
             line += 1
 
         self.sensor_win.refresh()
