@@ -26,7 +26,7 @@ class CliApp:
 
     def clock(self):
         now = strftime("%H:%M:%S", localtime())
-        self.clock_win.addstr(0, 0, " {} MeteoroLog Real-time ".format(now),
+        self.clock_win.addstr(0, 0, " {} | MeteoroLog Real-time ".format(now),
                               curses.A_REVERSE)
         self.clock_win.refresh()
 
@@ -35,8 +35,9 @@ class CliApp:
 
         line = 0
         for sensor in self.arduino.sensors:
-            self.sensor_win.addstr(line, 1, "{:<11} {:02.1f} {}".format(
-                sensor["tag"] + ":", sensor["value"], sensor["unit"]))
+            self.sensor_win.addstr(line, 1, "{:<11} {:02.1f} {:<5} {}".format(
+                sensor["tag"] + ":", sensor["value"], sensor["unit"],
+                sensor["ID"]))
             line += 1
 
         self.sensor_win.refresh()

@@ -58,17 +58,17 @@ class Arduino:
             except SerialException as err:
                 debug(str(err))
                 sys.exit(2)
+
             line = line.strip()
             if line == "--> END <--":
                 break
             try:
                 sensor, value = line.split(":", 1)
-            except ValueError:
-                continue
-            else:
                 for ssor in self.sensors:
                     if ssor["ID"] == sensor:
                         ssor["value"] = float(value)
+            except ValueError:
+                continue
 
 
 def debug(text):
