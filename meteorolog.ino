@@ -49,7 +49,7 @@ DallasTemperature ds18b20(&oneWire);
 DeviceAddress sensorDeviceAddress;
 
 // Initialize BMP180 sensor
-Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
+Adafruit_BMP085_Unified bmp180 = Adafruit_BMP085_Unified(10085);
 
 void setup(void) {
   Serial.begin(9600);
@@ -60,11 +60,12 @@ void setup(void) {
   ds18b20.begin();
   ds18b20.getAddress(sensorDeviceAddress, DS18B20_INDEX);
   ds18b20.setResolution(sensorDeviceAddress, DS18B20_RESOLUTION);
+
   // Start DHT11 sensor
   dht.begin();
 
   // Start BMP180 sensor
-  if(!bmp.begin())
+  if(!bmp180.begin())
   {
     Serial.print("Ooops, no BMP085 detected ... Check your wiring or I2C ADDR!");
     while(1);
@@ -111,7 +112,7 @@ void read_DHT11(void) {
 
 void read_BMP180(void) {
   sensors_event_t event;
-  bmp.getEvent(&event);
+  bmp180.getEvent(&event);
 
   if (event.pressure) {
     /* Display atmospheric pressue in hPa */
@@ -119,7 +120,7 @@ void read_BMP180(void) {
     Serial.println(event.pressure);
 
     float temperature;
-    bmp.getTemperature(&temperature);
+    bmp180.getTemperature(&temperature);
     Serial.print("BMP180_T:");
     Serial.println(temperature);
   }
