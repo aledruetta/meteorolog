@@ -70,10 +70,10 @@ void loop(void) {
 /* DHT11 Humidity */
 void read_DHT11(void) {
   float humidity = 0.0;
-  sensors_event_t dht11;
+  sensors_event_t event;
 
-  dht.humidity().getEvent(&dht11);
-  humidity = dht11.relative_humidity;
+  dht.humidity().getEvent(&event);
+  humidity = event.relative_humidity;
   if (isnan(humidity)) {
     Serial.println("Error reading humidity!");
   }
