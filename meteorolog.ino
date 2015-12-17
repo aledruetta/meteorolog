@@ -38,10 +38,10 @@
 DHT_Unified dht(DHTPIN, DHTTYPE);
 
 // Initialize BMP180 sensor
-Adafruit_BMP085_Unified bmp180 = Adafruit_BMP085_Unified(10085);
+Adafruit_BMP085_Unified bmp= Adafruit_BMP085_Unified(10085);
 
 // Initialize BH1750 sensor
-BH1750 bh1750;
+BH1750 bh;
 
 void setup(void) {
   Serial.begin(9600);
@@ -52,12 +52,10 @@ void setup(void) {
   dht.begin();
 
   // Start BMP180 sensor
-  if(!bmp180.begin()) {
-    Serial.println("Ooops, no BMP085 detected ... Check your wiring or I2C ADDR!");
-  }
+  bmp.begin();
 
   // Start BH1750 sensor
-  bh1750.begin();
+  bh.begin();
 }
 
 void loop(void) {
@@ -79,24 +77,23 @@ void read_DHT11(void) {
   }
   else {
     Serial.print("DHT11_H:");
-    Serial.println(humidity);
+    Serial.println(humidity);           // in %
   }
 }
 
 /* BMP180 Temperature & Atmospheric Pressure */
 void read_BMP180(void) {
   sensors_event_t event;
-  bmp180.getEvent(&event);
+  bmp.getEvent(&event);
 
   if (event.pressure) {
-    // Atmospheric pressue in hPa
     Serial.print("BMP180_P:");
-    Serial.println(event.pressure);
+    Serial.println(event.pressure);     // in hPa
 
     float temperature;
-    bmp180.getTemperature(&temperature);
+    bmp.getTemperature(&temperature);
     Serial.print("BMP180_T:");
-    Serial.println(temperature);
+    Serial.println(temperature);        // in Celsius
   }
   else {
     Serial.println("Sensor error");
@@ -105,8 +102,7 @@ void read_BMP180(void) {
 
 /* BH1750 Luminosity */
 void read_BH1750(void) {
-  uint16_t lux = bh1750.readLightLevel();
-  // Luminosity in lux
+  uint16_t lux = bh.readLightLevel();
   Serial.print("BH1750:");
-  Serial.println(lux);
+  Serial.println(lux);                  // in lux
 }
