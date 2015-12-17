@@ -9,8 +9,15 @@
  *  BMP180 Barometric Pressure/Temperature/Altitude Sensor
  *      SCL --> analog 5
  *      SDA --> analog 4
- *      VDD --> 3.3V DC     *** Warning!!! ***
+ *      VIN --> 3.3V DC     *** Warning!!! ***
  *      GND --> Ground
+ *
+ *  BH1750 Light Intensity Sensor GY-30
+ *      GND --> Ground
+ *      ADD --> Ground
+ *      SDA --> analog 4
+ *      SCL --> analog 5
+ *      VCC --> 3.3V DC     *** Warning!!! ***
  */
 
 /*** Include Libraries ***/
