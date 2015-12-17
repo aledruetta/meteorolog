@@ -13,23 +13,9 @@ class Arduino:
         self.serial = self.get_serial()
         self.sensors = [
             {
-                "ID": "DS18B20",
-                "name": "DS18B20",
-                "tag": "Temp 1",
-                "unit": "deg C",
-                "value": 0.0
-            },
-            {
-                "ID": "DHT11_T",
-                "name": "DHT11",
-                "tag": "Temp 2",
-                "unit": "deg C",
-                "value": 0.0
-            },
-            {
                 "ID": "BMP180_T",
                 "name": "BMP180",
-                "tag": "Temp 3",
+                "tag": "Temperature",
                 "unit": "deg C",
                 "value": 0.0
             },
@@ -51,7 +37,7 @@ class Arduino:
                 "ID": "BH1750",
                 "name": "BH1750",
                 "tag": "Luminosity",
-                "unit": "",
+                "unit": "lx",
                 "value": 0.0
             }
         ]
