@@ -7,8 +7,8 @@
  *      Connect a 10K resistor from pin DATA to pin VCC of the sensor
  *
  *  BMP180 Barometric Pressure/Temperature/Altitude Sensor
- *      SCL --> analog 5
  *      SDA --> analog 4
+ *      SCL --> analog 5
  *      VIN --> 3.3V DC     *** Warning!!! ***
  *      GND --> Ground
  *
@@ -63,9 +63,12 @@ void loop(void) {
   read_BMP180();
   read_BH1750();
   Serial.println("--> END <--");
+
+  delay(5000);      // read frequency
 }
 
-/* DHT11 Humidity */
+/*** DHT11 Humidity ***/
+
 void read_DHT11(void) {
   float humidity = 0.0;
   sensors_event_t event;
@@ -81,7 +84,8 @@ void read_DHT11(void) {
   }
 }
 
-/* BMP180 Temperature & Atmospheric Pressure */
+/*** BMP180 Temperature & Atmospheric Pressure ***/
+
 void read_BMP180(void) {
   sensors_event_t event;
   bmp.getEvent(&event);
@@ -100,7 +104,8 @@ void read_BMP180(void) {
   }
 }
 
-/* BH1750 Luminosity */
+/*** BH1750 Luminosity ***/
+
 void read_BH1750(void) {
   uint16_t lux = bh.readLightLevel();
   Serial.print("BH1750:");

@@ -16,7 +16,7 @@ class Arduino:
                 "ID": "BMP180_T",
                 "name": "BMP180",
                 "tag": "Temperature",
-                "unit": "deg C",
+                "unit": "*C",
                 "value": 0.0
             },
             {
@@ -48,6 +48,7 @@ class Arduino:
             return Serial(self.port, 9600, timeout=2)
         except SerialException as err:
             print str(err)
+            debug(str(err))
             sys.exit(2)
 
     def read_sensors(self):
