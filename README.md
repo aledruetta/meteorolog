@@ -1,8 +1,20 @@
-# Meteoro Log
+#MeteoroLog: just another mini weather station
 
-### DS18B20 One Wire Digital Temperature Sensor
+##   DHT11 Basic Temperature-Humidity Sensor
+       GND  --> Ground
+       DATA --> Signal (pin 9)
+       VCC  --> 5 Vcc
+       Connect a 10K resistor from pin DATA to pin VCC of the sensor
 
-Libraries:
+##   BMP180 Barometric Pressure/Temperature/Altitude Sensor
+       SDA --> analog 4
+       SCL --> analog 5
+       VIN --> 3.3V DC      Warning!!!
+       GND --> Ground
 
-- OneWire by Jim Studt
-- DallasTemperature by Miles Burton
+##   BH1750 Light Intensity Sensor GY-30
+       GND --> Ground
+       ADD --> Ground
+       SDA --> analog 4
+       SCL --> analog 5
+       VCC --> 3.3V DC      Warning!!!
