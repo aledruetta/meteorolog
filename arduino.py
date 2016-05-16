@@ -20,10 +20,17 @@ class Arduino:
                 "value": 0.0
             },
             {
-                "ID": "DHT11_H",
-                "name": "DHT11",
+                "ID": "DHT22_H",
+                "name": "DHT22",
                 "tag": "Humidity",
                 "unit": "%",
+                "value": 0.0
+            },
+            {
+                "ID": "DHT22_T",
+                "name": "DHT22",
+                "tag": "Temperature",
+                "unit": "*C",
                 "value": 0.0
             },
             {

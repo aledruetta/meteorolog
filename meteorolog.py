@@ -28,7 +28,7 @@ if __name__ == "__main__":
     try:
         wrapper(meteoro_CLI.main, port)       # Call main(stdscr, port)
     except KeyboardInterrupt:
-        print("Exit Meteoro Log: Ctrl-C Keyboard Interrupt")
+        print "Exit Meteoro Log: Ctrl-C Keyboard Interrupt"
     except OSError as err:
         print err
     except NameError as err:                  # If no port
