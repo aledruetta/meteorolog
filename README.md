@@ -6,6 +6,10 @@
 
    https://www.arduino.cc/en/Reference/SD
 
+   RTC DS1307 IC with battery (DS1307RTC Library compatible)
+
+   http://playground.arduino.cc/code/time
+
    The circuit:
 
      * SD card attached to SPI bus as follows:
@@ -13,10 +17,6 @@
      * MISO - pin 12 on Arduino Uno/Duemilanove/Diecimila
      * CLK - pin 13 on Arduino Uno/Duemilanove/Diecimila
      * CS - depends on your SD card shield or module (chipSelect=10).
-
-   RTC DS1307 IC with battery (DS1307RTC Library compatible)
-
-   http://playground.arduino.cc/code/time
 
 ## DHT22 Basic Temperature-Humidity Sensor
 

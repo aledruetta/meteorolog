@@ -13,17 +13,17 @@ class Arduino:
         self.serial = self.get_serial()
         self.sensors = [
             {
+                "ID": "BMP180_P",
+                "name": "BMP180",
+                "tag": "Pressure",
+                "unit": "hPa",
+                "value": 0.0
+            },
+            {
                 "ID": "BMP180_T",
                 "name": "BMP180",
                 "tag": "Temperature",
                 "unit": "*C",
-                "value": 0.0
-            },
-            {
-                "ID": "DHT22_H",
-                "name": "DHT22",
-                "tag": "Humidity",
-                "unit": "%",
                 "value": 0.0
             },
             {
@@ -34,10 +34,10 @@ class Arduino:
                 "value": 0.0
             },
             {
-                "ID": "BMP180_P",
-                "name": "BMP180",
-                "tag": "Pressure",
-                "unit": "hPa",
+                "ID": "DHT22_H",
+                "name": "DHT22",
+                "tag": "Humidity",
+                "unit": "%",
                 "value": 0.0
             },
             {

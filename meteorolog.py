@@ -8,12 +8,18 @@ import meteoro_CLI
 
 
 def usage():
-    pass
+    print """
+    Usage:
+        $ python meteorolog.py --help -h
+        $ python meteorolog.py --port=/dev/ttyUSB0
+        $ python meteorolog.py --port=/dev/ttyACM0
+    """
 
 
 if __name__ == "__main__":
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "p:", ["port=", "gui"])
+        opts, args = getopt.getopt(sys.argv[1:], "p:h",
+                                   ["port=", "gui", "help"])
     except getopt.GetoptError as err:
         print "Error:", str(err)
         usage()
@@ -24,6 +30,9 @@ if __name__ == "__main__":
             port = arg
         elif opt == "--gui":
             pass
+        elif opt in ("-h", "--help"):
+            usage()
+            sys.exit(0)
 
     try:
         wrapper(meteoro_CLI.main, port)       # Call main(stdscr, port)

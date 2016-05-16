@@ -81,40 +81,49 @@ void read_DHT22(void) {
   dht.humidity().getEvent(&event);
   humidity = event.relative_humidity;
   if (isnan(humidity)) {
-    Serial.println("Error reading humidity!");
+    Serial.println("Error:DHT22_H_Sensor");
   }
   else {
     Serial.print("DHT22_H:");
     Serial.println(humidity);           // in %
   }
+
   dht.temperature().getEvent(&event);
   temperature = event.temperature;
   if (isnan(temperature)) {
-    Serial.println("Error reading temperature!");
+    Serial.println("Error:DHT22_T_Sensor");
   }
   else {
     Serial.print("DHT22_T:");
-    Serial.println(temperature);           // in ºC
+    Serial.println(temperature);        // in ºC
   }
 }
 
 /*** BMP180 Temperature & Atmospheric Pressure ***/
 
 void read_BMP180(void) {
-  sensors_event_t event;
-  bmp.getEvent(&event);
+  float temperature = 0.0;
+  float pressure = 0.0;
 
-  if (event.pressure) {
-    Serial.print("BMP180_P:");
-    Serial.println(event.pressure);     // in hPa
+  sensors_event_t eventBMP;
+  bmp.getEvent(&eventBMP);
+  pressure = eventBMP.pressure;
+  bmp.getTemperature(&temperature);
 
-    float temperature;
-    bmp.getTemperature(&temperature);
+  if (isnan(temperature)) {
+    Serial.println("Error:BMP180_T_Sensor");
+  }
+  else {
     Serial.print("BMP180_T:");
     Serial.println(temperature);        // in Celsius
   }
+
+  if (isnan(pressure)) {
+    Serial.println("Error:BMP180_P_Sensor");
+  }
   else {
-    Serial.println("Sensor error");
+    Serial.print("BMP180_P:");
+    Serial.println(pressure);           // in hPa
   }
 }
 
@@ -122,6 +131,12 @@ void read_BMP180(void) {
 
 void read_BH1750(void) {
   uint16_t lux = bh.readLightLevel();
-  Serial.print("BH1750:");
-  Serial.println(lux);                  // in lux
+
+  if (isnan(lux)) {
+    Serial.println("Error:BH1750_Sensor");
+  }
+  else {
+    Serial.print("BH1750:");
+    Serial.println(lux);                // in lux
+  }
 }
