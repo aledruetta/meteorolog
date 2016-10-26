@@ -38,3 +38,14 @@
        SDA --> analog 4
        SCL --> analog 5
        VCC --> 3.3V DC      Warning!!!
+
+## Install
+
+	 - Install dependencies:
+
+	 $ sudo apt install python-pip
+	 $ pip install pyserial
+
+	 $ chmod u+x meteorolog.py
+	 $ ./meteorolog.py
+

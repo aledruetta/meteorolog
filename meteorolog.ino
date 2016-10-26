@@ -25,6 +25,17 @@
  *        SDA --> analog 4
  *        SCL --> analog 5
  *        VCC --> 3.3V DC      Warning!!!
+ *
+ * ## Testing Serial (Python 2.x)
+ *
+ *    $ sudo apt install python-pip
+ *    $ pip install pyserial
+ *    $ python
+ *
+ *    >>> from serial import Serial
+ *    >>> with Serial('/dev/ttyUSB0', 9600) as ser:
+ *    >>>     while(True):
+ *    >>>         print ser.readline().rstrip()
  */
 
 /*** Include Libraries ***/

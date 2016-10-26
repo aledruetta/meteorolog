@@ -2,8 +2,8 @@
 # coding: utf-8
 
 import curses
-from arduino import Arduino
 from time import sleep, strftime, localtime
+from arduino import Arduino
 
 
 class CliApp:
@@ -37,8 +37,10 @@ class CliApp:
 
         line = 0
         for sensor in self.arduino.sensors:
-            self.sensor_win.addstr(line, 1, "{:<11}\t{:04.1f}\t{:<5}\t{}".format(
-                sensor["tag"] + ":", sensor["value"], sensor["unit"], sensor["name"]))
+            self.sensor_win.addstr(line, 1,
+                                   "{:<11}\t{:04.1f}\t{:<5}\t{}".format(
+                                       sensor["tag"] + ":", sensor["value"],
+                                       sensor["unit"], sensor["name"]))
             line += 1
 
         self.sensor_win.refresh()
