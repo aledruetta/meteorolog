@@ -26,7 +26,7 @@
  *        SCL --> analog 5
  *        VCC --> 3.3V DC      Warning!!!
  *
- * ## Testing Serial (Python 2.x)
+ * ## Testing USB Serial (Python 2.x)
  *
  *    $ sudo apt install python-pip
  *    $ pip install pyserial
@@ -36,6 +36,15 @@
  *    >>> with Serial('/dev/ttyUSB0', 9600) as ser:
  *    >>>     while(True):
  *    >>>         print ser.readline().rstrip()
+ *
+ * ## Testing Bluetooth
+ *
+ *		$ hciconfig
+ *		$ hcitool scan
+ *		$ sudo rfcomm bind /dev/rfcomm0 MAC_ADDRESS_SCAN 1
+ *		$ ls -l /dev/rfcomm0
+ *		$ cat /dev/rfcomm0
+ *
  */
 
 /*** Include Libraries ***/
