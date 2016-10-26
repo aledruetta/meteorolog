@@ -7,6 +7,8 @@
  *    http://playground.arduino.cc/code/time
  *
  * ## DHT22 Basic Temperature-Humidity Sensor
+ *    https://github.com/adafruit/Adafruit_Sensor
+ *    https://github.com/adafruit/Adafruit_DHT_Unified
  *    https://github.com/adafruit/DHT-sensor-library
  *
  * ## BMP180 Barometric Pressure/Temperature/Altitude Sensor
@@ -17,6 +19,7 @@
  *        GND --> Ground
  *
  * ## BH1750 Light Intensity Sensor GY-30
+ *    https://github.com/claws/BH1750
  *        GND --> Ground
  *        ADD --> Ground
  *        SDA --> analog 4
@@ -48,6 +51,8 @@ Adafruit_BMP085_Unified bmp= Adafruit_BMP085_Unified(10085);
 BH1750 bh;
 
 void setup(void) {
+
+  // Start Serial
   Serial.begin(9600);
   while(!Serial);
   delay(1000);
