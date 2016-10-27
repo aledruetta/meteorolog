@@ -1,16 +1,42 @@
 #!/bin/bash
 
-if [ ! $1 ]; then
-	echo "Scanning..."
-	REMDEV=`hcitool scan | awk '/[[:xdigit:]]{2}(:[[:xdigit:]]{2}){5}/ { print $1 }'`
+BLUMAC=`hcitool dev | awk '/[[:xdigit:]]{2}(:[[:xdigit:]]{2}){5}/ { print $2 }'`
+
+if [ -n "$BLUMAC" ] ; then
+
+	echo "Dispositivo Bluetooth: $BLUMAC"
+
+	if [ -n "$1" ] ; then
+		REMAC=$1
+	else
+		echo "Scanning..."
+		REMAC=`hcitool scan | awk '/[[:xdigit:]]{2}(:[[:xdigit:]]{2}){5}/ { print $1 }'`
+	fi
 else
-	REMDEV=$1
+	echo "Erro: Dispositivo Bluetooth não detectado!"
+	exit 1
 fi
 
-BLUDEV=`hcitool dev | awk '/[[:xdigit:]]{2}(:[[:xdigit:]]{2}){5}/ { print $2 }'`
+if [ -n "$REMAC" ] ; then
+	RENAME=`hcitool name $REMAC`
+	if [ -n "$RENAME" ] ; then
+		echo "Dispositivo Remoto: $RENAME ($REMAC)"
+	else
+		echo "Erro: Dispositivo Remoto não detectado!"
+		exit 1
+	fi
+else
+	echo "Erro: Dispositivo Remoto não detectado!"
+	exit 1
+fi
 
-echo "Dispositivo Bluetooth: $BLUDEV"
-echo "Dispositivo Remoto: $REMDEV"
+echo "Estabelecer conexão com $RENAME (y/n)?"
+read RESP
+
+if [ ! "$RESP" == "y" ] ; then
+	exit 0
+fi
+
 echo
 echo "Conectando ..."
 
@@ -20,12 +46,13 @@ if [ -c "$RFCOMM" ] ; then
 	echo "$RFCOMM bound"
 else
 	echo "Binding $RFCOMM ..."
-	sudo rfcomm bind $RFCOMM $REMDEV 1
+	sudo rfcomm bind $RFCOMM $REMAC 1
 fi
 
 BLUTXT="blue.txt"
+DATE=`date`
 
 echo "Escrevendo em $BLUTXT"
-echo "---"
-echo
+printf "\n%s\n\n" "$DATE" | tee -a $BLUTXT
 cat $RFCOMM | tee -a $BLUTXT
+
